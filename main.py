@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Header
 from datetime import datetime
+from currency_exchange_provider import XeCurrencyExchange
 
 app = FastAPI()
 
@@ -7,20 +8,7 @@ app = FastAPI()
 conversions = []
 
 # list of all supported currencies
-currencies = {
-    'USD': {
-        'name': 'United States Dollar',
-        'rate': 1.0
-    },
-    'AED': {
-            'name': 'Dirhams',
-            'rate': 3.6725
-    },
-    'EGP': {
-        'name': 'Egyption Pound',
-        'rate': 29.6540453288
-    },
-}
+CurrencyExchangeProvider = XeCurrencyExchange
 
 
 @app.get("/convert")
@@ -30,12 +18,16 @@ def convert_currency(amount: float, from_currency: str, to_currency: str):
     based on conversion formula  converted_amount = amount * (to_currency_rate/from_currency_rate)
     """
 
+    # Get the latest updated rates
+    rates = CurrencyExchangeProvider.get_rates()
+    print(rates)
+
     # Conversion formula
-    converted_amount = amount * (currencies[to_currency]['rate']/currencies[from_currency]['rate'])
+    converted_amount = amount * (rates[to_currency]/rates[from_currency])
 
     conversion_details = {
         "converted_amount": converted_amount,
-        "rate": currencies[to_currency]['rate']/currencies[from_currency]['rate'],
+        "rate": rates[to_currency]/rates[from_currency],
         "metadata": {
             "time_of_conversion": str(datetime.now()),
             "from_currency": from_currency,
@@ -51,7 +43,7 @@ def get_supported_currencies():
     """
     This endpoint returns a dictionary containing all supported currencies
     """
-    supported_currencies = {currency: currencies[currency]['name'] for currency in currencies.keys()}
+    supported_currencies = CurrencyExchangeProvider.get_supported_currencies()
     return supported_currencies
 
 
