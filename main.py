@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from datetime import datetime
 
 app = FastAPI()
@@ -23,7 +23,6 @@ currencies = {
 }
 
 
-
 @app.get("/convert")
 def convert_currency(amount: float, from_currency: str, to_currency: str):
     """
@@ -46,4 +45,20 @@ def convert_currency(amount: float, from_currency: str, to_currency: str):
     conversions.append(conversion_details)
     return conversion_details
 
+
+@app.get("/currencies")
+def get_supported_currencies():
+    """
+    This endpoint returns a dictionary containing all supported currencies
+    """
+    supported_currencies = {currency: currencies[currency]['name'] for currency in currencies.keys()}
+    return supported_currencies
+
+
+@app.get("/history")
+async def get_conversion_history():
+    """
+    This endpoint returns a list of all previous conversions
+    """
+    return conversions
 
