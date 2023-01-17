@@ -7,7 +7,7 @@ app = FastAPI()
 # list to store previous conversions as alternate of Database
 conversions = []
 
-# list of all supported currencies
+# Specify currency exchange provider
 CurrencyExchangeProvider = XeCurrencyExchange
 
 
