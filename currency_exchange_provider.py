@@ -4,7 +4,8 @@ import requests
 
 class CurrencyExchangeProvider(ABC):
     """
-    Abstract class for Currency Converter Website, it defines the method of getting currency conversion rates
+    Abstract class for Currency Converter Website/Provider,
+    it defines the method of getting supported currencies and currencies rates
     """
 
     @staticmethod
