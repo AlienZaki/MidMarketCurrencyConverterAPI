@@ -40,7 +40,6 @@ async def convert_currency(amount: float, from_currency: str, to_currency: str, 
 
     # Get the latest updated rates
     rates = CurrencyExchangeProvider.get_rates()
-    print(rates)
 
     # Conversion formula
     converted_amount = amount * (rates[to_currency] / rates[from_currency])

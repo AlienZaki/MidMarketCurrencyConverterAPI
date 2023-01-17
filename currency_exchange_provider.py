@@ -43,7 +43,3 @@ class XeCurrencyExchange(CurrencyExchangeProvider):
         return rates
 
 
-# if __name__ == '__main__':
-#     xe = XeCurrencyExchange()
-#     print(xe.get_supported_currencies())
-#     print(xe.get_rates())

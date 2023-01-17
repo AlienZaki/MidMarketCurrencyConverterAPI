@@ -14,7 +14,7 @@ A simple API to convert currency using mid-market rate with the help of external
 > git clone https://github.com/AlienZaki/MidMarketCurrencyConverterAPI.git
 
 2. Navigate to the project directory
-> cd currency-converter-api
+> cd MidMarketCurrencyConverterAPI
 
 3. Build the Docker image and start the container
 > docker-compose up --build
